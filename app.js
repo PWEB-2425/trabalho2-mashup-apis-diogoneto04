@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const fetch = require('node-fetch');
 require('dotenv').config();
@@ -14,17 +15,21 @@ app.use(express.json());
 // Tornar a pasta /public acessível
 app.use(express.static('public'));
 
-// Sessões
+// Sessões (armazenadas no MongoDB)
 app.use(session({
     secret: process.env.SESSION_SECRET || 'segredo_super_secreto',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI
+    })
 }));
 
+// Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configurar passport
+// Configurar Passport
 const initializePassport = require('./routes/passport');
 initializePassport(passport);
 
@@ -54,7 +59,7 @@ app.get('/dashboard', ensureAuth, (req, res) => {
     res.sendFile(__dirname + '/public/dashboard.html');
 });
 
-// API para histórico
+// API para histórico do utilizador
 app.get('/api/historico', ensureAuth, (req, res) => {
     res.json({ history: req.user.history });
 });
