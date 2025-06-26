@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
-const fetch = require('node-fetch');
 require('dotenv').config();
+
+// Importação correta do fetch no Node.js (CommonJS)
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 
