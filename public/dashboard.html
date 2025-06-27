@@ -8,15 +8,26 @@
 <body>
   <div class="container">
     <h1>Mashup de APIs</h1>
+
+    <!-- Formulário de pesquisa -->
     <form id="searchForm">
       <input type="text" name="termo" placeholder="Pesquisar (cidade, país)" required>
       <button type="submit">Pesquisar</button>
     </form>
+
+    <!-- Botão de logout -->
     <button id="logoutBtn" class="logout-btn">Logout</button>
+
+    <!-- Resultados da pesquisa -->
     <div id="resultados"></div>
+
+    <!-- Histórico de pesquisas -->
     <h2>Histórico de pesquisas</h2>
-    <ul id="history"></ul>
+    <ul id="history">
+      <li style="color: #aaa;">Sem pesquisas ainda.</li>
+    </ul>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

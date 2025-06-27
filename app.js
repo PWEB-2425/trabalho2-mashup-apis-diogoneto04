@@ -5,19 +5,17 @@ const MongoStore = require('connect-mongo');
 const passport = require('passport');
 require('dotenv').config();
 
-// Importação correta do fetch no Node.js (CommonJS)
+// Importação correta do fetch no Node.js
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 
-// Middlewares básicos
+// Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Tornar a pasta /public acessível
 app.use(express.static('public'));
 
-// Sessões (armazenadas no MongoDB)
+// Sessões
 app.use(session({
     secret: process.env.SESSION_SECRET || 'segredo_super_secreto',
     resave: false,
@@ -27,24 +25,23 @@ app.use(session({
     })
 }));
 
-// Inicializar Passport
+// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configurar Passport
 const initializePassport = require('./routes/passport');
 initializePassport(passport);
 
-// Importar Rotas
+// Rotas de autenticação
 const authRoutes = require('./routes/authRoutes');
 app.use('/auth', authRoutes);
 
-// Ligação ao MongoDB 🔥
+// Ligação MongoDB
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('✅ MongoDB ligado com sucesso!'))
-    .catch((err) => console.error('❌ Erro na ligação ao MongoDB:', err));
+    .then(() => console.log('✅ MongoDB ligado!'))
+    .catch(err => console.error('❌ Erro MongoDB:', err));
 
-// Middleware para garantir autenticação
+// Middleware autenticação
 function ensureAuth(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -52,7 +49,7 @@ function ensureAuth(req, res, next) {
     res.redirect('/');
 }
 
-// Rotas para páginas
+// Rotas páginas
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
@@ -61,18 +58,18 @@ app.get('/dashboard', ensureAuth, (req, res) => {
     res.sendFile(__dirname + '/public/dashboard.html');
 });
 
-// API para histórico do utilizador
+// API histórico
 app.get('/api/historico', ensureAuth, (req, res) => {
     res.json({ history: req.user.history });
 });
 
-// API para pesquisa (Mashup: OpenWeather + Wikipedia)
+// API mashup
 app.post('/api/search', ensureAuth, async (req, res) => {
     const termo = req.body.termo;
     if (!termo) return res.json({ error: 'Termo obrigatório.' });
 
     try {
-        // OpenWeather API
+        // OpenWeather
         const weatherResp = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${termo}&units=metric&appid=${process.env.WEATHER_API_KEY}&lang=pt`);
         const weather = await weatherResp.json();
 
@@ -80,11 +77,11 @@ app.post('/api/search', ensureAuth, async (req, res) => {
             return res.json({ error: 'Cidade não encontrada no OpenWeather.' });
         }
 
-        // Wikipedia API
+        // Wikipedia
         const wikiResp = await fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(termo)}`);
         const summary = await wikiResp.json();
 
-        // Guardar no histórico do utilizador
+        // Guardar histórico
         req.user.history.push({ term: termo, date: new Date() });
         await req.user.save();
 
@@ -95,12 +92,12 @@ app.post('/api/search', ensureAuth, async (req, res) => {
     }
 });
 
-// API para verificar se está autenticado (usado no script.js)
+// Verificar autenticação
 app.get('/auth/check', (req, res) => {
     res.json({ authenticated: req.isAuthenticated() });
 });
 
-// Ligar servidor
+// Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor a correr em http://localhost:${PORT}`);
