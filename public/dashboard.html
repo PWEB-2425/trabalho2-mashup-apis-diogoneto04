@@ -2,32 +2,21 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - Mashup APIs</title>
+  <title>Clima e Informação</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Mashup de APIs</h1>
-
-    <!-- Formulário de pesquisa -->
+    <h1>Clima e Informação</h1>
     <form id="searchForm">
       <input type="text" name="termo" placeholder="Pesquisar (cidade, país)" required>
       <button type="submit">Pesquisar</button>
     </form>
-
-    <!-- Botão de logout -->
     <button id="logoutBtn" class="logout-btn">Logout</button>
-
-    <!-- Resultados da pesquisa -->
     <div id="resultados"></div>
-
-    <!-- Histórico de pesquisas -->
     <h2>Histórico de pesquisas</h2>
-    <ul id="history">
-      <li style="color: #aaa;">Sem pesquisas ainda.</li>
-    </ul>
+    <ul id="history"></ul>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>

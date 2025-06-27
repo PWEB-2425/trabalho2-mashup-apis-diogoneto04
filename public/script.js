@@ -1,38 +1,37 @@
-// Login
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
     loginForm.onsubmit = async (e) => {
         e.preventDefault();
-        const username = loginForm.username.value;
-        const password = loginForm.password.value;
         const res = await fetch('/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({
+                username: loginForm.username.value,
+                password: loginForm.password.value
+            })
         });
         if (res.ok) window.location = '/dashboard.html';
         else alert('Login inválido!');
     };
 }
 
-// Registo
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
     registerForm.onsubmit = async (e) => {
         e.preventDefault();
-        const username = registerForm.username.value;
-        const password = registerForm.password.value;
         const res = await fetch('/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({
+                username: registerForm.username.value,
+                password: registerForm.password.value
+            })
         });
         if (res.ok) alert('Registado! Faça login.');
         else alert('Erro no registo.');
     };
 }
 
-// Dashboard
 if (window.location.pathname.endsWith('dashboard.html')) {
     fetch('/auth/check')
         .then(res => res.json())
@@ -42,45 +41,43 @@ if (window.location.pathname.endsWith('dashboard.html')) {
         });
 
     const searchForm = document.getElementById('searchForm');
-    if (searchForm) {
-        searchForm.onsubmit = async (e) => {
-            e.preventDefault();
-            const termo = searchForm.termo.value;
-            const res = await fetch('/api/search', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ termo })
-            });
-            const data = await res.json();
-            if (data.error) {
-                document.getElementById('resultados').innerText = data.error;
-            } else {
-                document.getElementById('resultados').innerHTML = `
+    searchForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const termo = searchForm.termo.value;
+        const res = await fetch('/api/search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ termo })
+        });
+        const data = await res.json();
+        if (data.error) {
+            document.getElementById('resultados').innerText = data.error;
+        } else {
+            document.getElementById('resultados').innerHTML = `
+                <div class="card">
+                    ${data.image ? `<img src="${data.image}" alt="${termo}" class="cidade-img">` : ''}
                     <h3>Clima:</h3>
                     <p>${data.weather.weather[0].description}, ${data.weather.main.temp}°C em ${data.weather.name}</p>
                     <h3>Wikipedia:</h3>
                     <p>${data.summary.extract}</p>
-                `;
-                carregarHistorico();
-            }
-        };
-    }
+                </div>
+            `;
+            carregarHistorico();
+        }
+    };
 
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.onclick = async () => {
-            await fetch('/auth/logout');
-            window.location = '/';
-        };
-    }
+    document.getElementById('logoutBtn').onclick = async () => {
+        await fetch('/auth/logout');
+        window.location = '/';
+    };
 
     function carregarHistorico() {
-        fetch('/api/historico')
+        fetch('/api/history')
             .then(res => res.json())
             .then(data => {
                 const ul = document.getElementById('history');
                 ul.innerHTML = '';
-                if (data.history && data.history.length) {
+                if (data.history.length) {
                     data.history.slice().reverse().forEach(item => {
                         const li = document.createElement('li');
                         li.innerHTML = `

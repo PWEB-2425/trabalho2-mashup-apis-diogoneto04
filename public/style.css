@@ -1,141 +1,85 @@
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #d4f1f4, #75e6da);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ccf2f4, #a0e9e5);
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-  max-width: 600px;
-  width: 95%;
-  background: #ffffff;
-  padding: 40px 30px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px 24px;
+    border-radius: 18px;
+    box-shadow: 0 6px 24px rgba(20,20,60,0.09);
 }
 
 h1, h2 {
-  text-align: center;
-  color: #22577A;
-  margin-bottom: 20px;
-}
-
-h2 {
-  margin-top: 40px;
+    text-align: center;
+    color: #22577A;
 }
 
 form {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
-input[type="text"],
-input[type="password"] {
-  padding: 10px 14px;
-  border: 1px solid #bcd0ee;
-  border-radius: 8px;
-  background: #f5faff;
-  outline: none;
-  transition: border-color 0.3s;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-  border-color: #38A3A5;
+input[type="text"], input[type="password"] {
+    padding: 8px;
+    border: 1px solid #bcd0ee;
+    border-radius: 5px;
+    background: #f5faff;
 }
 
 button {
-  padding: 10px 20px;
-  border: none;
-  background: #38A3A5;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background .2s, transform 0.2s;
+    padding: 8px 16px;
+    border: none;
+    background: #38A3A5;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background .15s;
 }
 
 button:hover {
-  background: #22577A;
-  transform: scale(1.05);
+    background: #22577A;
 }
 
 .logout-btn {
-  background: #e55039;
+    background: #e55039;
 }
 
-.logout-btn:hover {
-  background: #c0392b;
-}
-
-/* Resultados */
-#resultados {
-  background: #f5faff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-  margin-bottom: 30px;
-}
-
-#resultados img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-/* Histórico */
 ul#history {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 ul#history li {
-  background: #f1f8fc;
-  border-left: 5px solid #38A3A5;
-  margin-bottom: 10px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.2s;
+    background: #f1f8fc;
+    border-left: 4px solid #38A3A5;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-ul#history li:hover {
-  background: #e0f7fa;
+.card {
+    background: #f9fbfd;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
 }
 
-/* Para imagem da cidade */
-.city-image {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-/* Responsivo */
-@media (max-width: 600px) {
-  form {
-    flex-direction: column;
-  }
-
-  button {
-    width: 100%;
-  }
+.cidade-img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
