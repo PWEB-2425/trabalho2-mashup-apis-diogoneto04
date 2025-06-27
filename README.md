@@ -1,73 +1,128 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/psUndoci)
-# Trabalho #2 API MASHUP
+ Clima e Informação — Mashup de APIs
+Trabalho #2 — Programação Web
 
-**Data de Entrega:** 26 de junho de 2025
+ Autores
+Diogo Neto (29510)
 
----
+Hugo Carvalho (31791)
 
-## 1. Objetivo
+ Descrição
+Aplicação web com:
 
-Desenvolver uma aplicação web que:
+ Sistema de autenticação (registo, login e logout).
 
-- Consuma e integre dados de pelo menos 2 APIs externas, com o **servidor** a efetuar todas as requisições (server-side).
-- Inclua um sistema de autenticação de utilizadores baseado em **Express Sessions** ou **Passport-local**.
-- Utilize base de dados **MongoDB** para armazenar informação dos utilizadores (por exemplo histórico de pesquisas)
+ Integração de duas APIs externas:
 
-## 2. Funcionalidades
+OpenWeatherMap — Clima atual da cidade/pais pesquisado.
 
-1. **Autenticação (Server)**
-   - Registo de utilizador (username + password)
-   - Início de sessão com sessões Express ou Passport-local
-   - Proteção de rotas para apenas utilizadores autenticados
-2. **Mashup de APIs**
-   - O utilizador, após login, introduz um termo de pesquisa (e.g., nome de cidade, artista, palavra)
-   - O servidor consome até duas APIs REST externas e retorna dados integrados ao cliente
-   - **Exemplos de APIs**:
-     - **OpenWeatherMap**: clima da cidade (`/weather?q={city}`)
-     - **RestCountries**: informações do país (`/alpha/{code}`)
-     - **Wikipedia REST API**: resumo de artigos (`/page/summary/{title}`)
-     - **Pixabay** ou **Unsplash**: imagens livres de royalties
-     - **NewsAPI** ou **GNews API**: notícias relacionadas
-     - **TMDB API**: informação e posters de filmes
-3. **Persistência em MongoDB**
-   - Guardar credenciais (idealmente hash das passwords)
-   - Histórico de pesquisas por utilizador
+Wikipedia REST API — Resumo enciclopédico e imagem representativa da cidade.
 
-## 3. Tecnologias
+ Histórico de pesquisas persistente em MongoDB, associado a cada utilizador autenticado.
 
-- **Frontend**: HTML, CSS (ou Tailwind/Bootstrap), JavaScript
-- **Backend**: Node.js (v12+), Express
-  - Autenticação: **express-session** ou **passport-local**
-  - Chamadas a APIs feitas no servidor com ftech API (alternativamente com **Axios**, ou **node-fetch** em versoes mais antigas) usando **async/await**
-- **Base de Dados**: MongoDB (Atlas ou local)
+ Funcionalidades
+ Registo e login de utilizadores (com passwords encriptadas — bcrypt).
 
-## 4. APIs Externas (sugeridas)
+ Proteção de rotas (apenas utilizadores autenticados podem aceder à dashboard).
 
-- **OpenWeatherMap** (clima e geocoding)
-- **RestCountries** (bandeiras, capitais, moedas)
-- **Wikipedia REST API** (enciclopédia)
-- **Pixabay** / **Unsplash** (imagens)
-- **NewsAPI** / **GNews API** (notícias)
-- **Exchange Rates API** (câmbio de moedas)
-- **DictionaryAPI** (definições, sinónimos)
-- **TMDB API** (filmes, trailers)
+ Pesquisa de cidades ou países.
 
-> **Nota:** Registem-se nas plataformas e obtenham as chaves necessárias. Todas as requisições a estas APIs devem ser feitas pelo servidor, protegendo as suas credenciais. As API Keys não devem ficar expostas no código.
+ Retorno de:
 
-## 5. Regras & Avaliação
+Clima atual (OpenWeatherMap).
 
-1. **Grupos:** 2 elementos por grupo.
-2. **GitHubClassroom:** Repositório privado com acesso ao utilizador `pedromoreira-estg`.
-3. **Build & Install:** Incluir script para instalar dependências e iniciar a aplicação.
-4. **Documentação (`README.md`):** Incluir:
-   - Identificação dos elementos do grupo
-   - Tecnologias e APIs utilizadas
-   - Instruções de instalação e configuração das chaves e do MongoDB
-   - Comandos para executar localmente
-   - Link de deployment (**render.com** ou equivalente)
-5. **Deployment:** Aplicação operacional online (ex.: render.com).
-6. **Entrega em Moodle:** Cópia do `README.md` e `.zip`e **link** do repositório.
+Resumo textual + imagem (Wikipedia API).
 
----
+ Histórico de pesquisas, visível na dashboard.
 
-Boa sorte!
+ Logout seguro.
+
+ Interface moderna, simples e responsiva.
+
+ Tecnologias
+Frontend:
+
+HTML5, CSS3, JavaScript
+
+Backend:
+
+Node.js + Express
+
+Autenticação: passport-local, express-session
+
+Segurança: bcrypt, dotenv, connect-mongo
+
+MongoDB + Mongoose
+
+APIs externas:
+
+ OpenWeatherMap (clima)
+
+ Wikipedia REST API (resumo + imagem)
+
+Outros:
+
+Axios (chamadas HTTP)
+
+ Estrutura do Projeto
+├── models/
+│   └── User.js
+├── public/
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── style.css
+│   └── script.js
+├── routes/
+│   ├── auth.js
+│   ├── api.js
+│   └── passport.js
+├── views/ (se aplicável)
+├── .env
+├── .gitignore
+├── app.js
+├── package.json
+├── README.md
+
+ Instalação Local
+1 Clonar o Repositório
+git clone https://github.com/PWEB-2425/trab2_APIMashup.git
+cd trab2_APIMashup
+2️ Instalar Dependências
+npm install
+3️ Configurar Variáveis de Ambiente
+Criar um ficheiro .env na raiz do projeto com o seguinte conteúdo:
+MONGODB_URI=your_mongodb_connection_string
+SESSION_SECRET=sua_chave_secreta
+API_KEY_OPENWEATHERMAP=sua_api_key_openweather
+(Se usares Unsplash ou outra API para imagens, adicionar também a chave correspondente.)
+
+ Executar Localmente
+
+npm start
+Aceder em:
+
+http://localhost:3000
+ Deploy Online
+O projeto está disponível em:
+ https://trabalho2-mashup-apis-diogoneto04.onrender.com/
+
+ Como Usar
+ Faz registo com nome de utilizador e password.
+
+ Faz login na plataforma.
+
+ Pesquisa por uma cidade ou país.
+
+ Vê o clima atual, resumo da Wikipedia e uma imagem representativa.
+
+ Consulta o teu histórico de pesquisas na dashboard.
+
+ Faz logout quando quiseres.
+
+ Notas Importantes
+ Todas as chamadas às APIs externas são feitas pelo servidor (as API Keys nunca estão no frontend).
+
+ As passwords são guardadas de forma segura (encriptadas com bcrypt).
+
+ O histórico é privado e associado a cada utilizador.
+
+ O projeto está pronto a correr em qualquer ambiente Node.js compatível.
