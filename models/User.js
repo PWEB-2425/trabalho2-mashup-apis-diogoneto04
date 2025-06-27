@@ -11,10 +11,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    history: {
-        type: [String],
-        default: []
-    }
+    history: [
+        {
+            term: String,
+            date: Date
+        }
+    ]
 });
 
 // Hash da password antes de guardar
