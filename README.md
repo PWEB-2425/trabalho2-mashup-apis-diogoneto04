@@ -64,48 +64,78 @@ Outros:
 Axios (chamadas HTTP)
 
  Estrutura do Projeto
-├── models/
-│   └── User.js
-├── public/
-│   ├── index.html
-│   ├── dashboard.html
-│   ├── style.css
-│   └── script.js
-├── routes/
-│   ├── auth.js
-│   ├── api.js
-│   └── passport.js
-├── views/ (se aplicável)
-├── .env
-├── .gitignore
-├── app.js
-├── package.json
-├── README.md
+
+models/	Modelos da base de dados (User)
+
+└── User.js	Modelo do utilizador
+
+public/	Ficheiros públicos (frontend)
+
+├── index.html	Página de login/registo
+
+├── dashboard.html	Página principal após login
+
+├── style.css	Estilo (CSS)
+
+└── script.js	Scripts frontend (JS)
+
+routes/	Rotas da aplicação
+├── auth.js	Rotas de autenticação
+
+├── api.js	Rotas da API (pesquisa)
+
+└── passport.js	Configuração do passport
+
+.env	Variáveis de ambiente
+
+.gitignore	Ficheiros a ignorar pelo Git
+
+app.js	Ficheiro principal do servidor
+
+package.json	Dependências e scripts do projeto
+
+README.md	Documentação
 
  Instalação Local
 1 Clonar o Repositório
+
 git clone https://github.com/PWEB-2425/trab2_APIMashup.git
+
 cd trab2_APIMashup
+
 2️ Instalar Dependências
+
 npm install
+
 3️ Configurar Variáveis de Ambiente
+
 Criar um ficheiro .env na raiz do projeto com o seguinte conteúdo:
+
 MONGODB_URI=your_mongodb_connection_string
+
 SESSION_SECRET=sua_chave_secreta
+
 API_KEY_OPENWEATHERMAP=sua_api_key_openweather
+
 (Se usares Unsplash ou outra API para imagens, adicionar também a chave correspondente.)
 
  Executar Localmente
 
 npm start
+
 Aceder em:
 
 http://localhost:3000
+
  Deploy Online
+
 O projeto está disponível em:
+
  https://trabalho2-mashup-apis-diogoneto04.onrender.com/
 
+
  Como Usar
+
  Faz registo com nome de utilizador e password.
 
  Faz login na plataforma.
